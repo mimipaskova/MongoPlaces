@@ -1,0 +1,18 @@
+<div class="container" style="margin-top:30px">
+    <div class="login-panel panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"><strong>Вход</strong></h3></div>
+        <div class="panel-body" id="body">
+            <div>
+                <div class="form-group">
+                    <label for="nameOrEmail" class="th-lables">Име или Email</label>
+                    <input ng-model="useremail" type="text" class="form-control th-input-credentials" id="nameOrEmail" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="th-lables">Парола</label>
+                    <input ng-model="password" type="password" class="form-control th-input-credentials" id="password" placeholder="Password">
+                </div>
+                <button type="button" ng-click="login()" id="login" class="btn btn-sm btn-default th-button">Влез</button>
+            </div>
+        </div>
+    </div>
+</div>
