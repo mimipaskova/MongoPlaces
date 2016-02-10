@@ -9,5 +9,13 @@ angular.module('takeAHike').controller('profileCtr', function ($scope, $http, $l
 		}, function () {
 			console.log('fail');
 		});
+	},
+	$scope.map = function() {
+		$http.post('/map').then(function () {
+			console.log('successMap');
+			$location.path('/map');
+		}, function () {
+			console.log('fail');
+		});
 	}
 });

@@ -8,6 +8,10 @@ angular.module('takeAHike', ['ngRoute']).config(['$routeProvider', function ($ro
 		templateUrl: 'html/login.html',
 		controller: 'loginCtr'
 	})
+	.when('/map', {
+		templateUrl: 'html/map.html',
+		controller: 'mapCtr'
+	})
 	.otherwise({
 		redirectTo: '/login'
 	});

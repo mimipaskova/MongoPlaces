@@ -52,6 +52,30 @@ app.get('/api/profile', function(req, resp) {
   resp.json(req.session.user);
 });
 
+app.get('/api/map', function(req, resp) {
+  db.models.places.find({name:'CSS'})
+  .then(function (places) {
+    // console.log(places);
+    // var placesMap = {};
+    // places.forEach(function(place) {
+    //   placesMap[place._id] = place;
+    // });
+    // resp.session.places = places;
+    resp.json(places);
+    // resp.status(200).end();
+  }, function(err) {
+    console.error('Cannot find any places', err);
+    resp.status(403).end();
+  });
+});
+
+app.post('/map', function(req, resp) {
+  resp.status(200).end();
+});
+
+app.post('/profile', function(req, resp) {
+  resp.status(200).end();
+});
 // Create HTTP server.
 http.createServer(app).listen(3000);
 
