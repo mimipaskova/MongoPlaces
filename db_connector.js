@@ -24,7 +24,7 @@ var placesSchema = new Schema({
 });
 
 // index for GPS coordinates
-placesSchema.index({ loc: '2dsphere' });
+placesSchema.index({ "loc.coordinates": '2dsphere' });
 placesSchema.index({type: 1});
 placesSchema.index({rating: 1, likes: 1});
 

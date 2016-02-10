@@ -7,7 +7,11 @@ angular.module('takeAHike').controller('loginCtr', function ($scope, $http, $loc
 			console.log('success');
 			$location.path('/map');
 		}, function () {
+			alert("Wrong password or email");
 			console.log('fail');
 		});
+	};
+	$scope.register = function () {
+		$location.path('/register');
 	};
 });

@@ -8,6 +8,10 @@ angular.module('takeAHike', ['ngRoute']).config(['$routeProvider', function ($ro
 		templateUrl: 'html/login.html',
 		controller: 'loginCtr'
 	})
+	.when('/register', {
+		templateUrl: 'html/register.html',
+		controller: 'registerCtr'
+	})
 	.when('/map', {
 		templateUrl: 'html/map.html',
 		controller: 'mapCtr'
