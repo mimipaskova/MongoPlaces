@@ -36,11 +36,14 @@ app.post('/login', function (req, resp) {
 });
 
 app.post('/register', function (req, resp) {
-    db.models.users.findOne({
-        email: req.body.username
-    }).then(function (user) {
-        resp.status(403).end();
-    }, function (err) {
+  console.log("rfetfwegwergew");
+    // db.models.users.findOne({
+    //     email: req.body.username
+    // }).then(function (user) {
+    //   console.log(email);
+    //     resp.status(403).end();
+    // }, function (err) {
+    //   console.log("ERRR");
       var user = db.models.users;
       var newUser = new user();
       newUser.email = req.body.username;
@@ -58,7 +61,7 @@ app.post('/register', function (req, resp) {
           resp.status(200).end();
         }
       });
-    });
+    // });
 });
 
 app.post('/logout', function(req, resp) {
@@ -107,6 +110,20 @@ app.post('/map', function(req, resp) {
 app.post('/profile', function(req, resp) {
   resp.status(200).end();
 });
+
+app.post('/profile/removePlace', function (req, resp) {
+  db.models.users.findById(place._id, function(err, foundUser) {
+    db.models.places.findById(user._id, function(err, foundPlace) {
+      foundUser.favouritePlaces.filter(function (favouritePlace) {
+        return favouritePlace != foundPlace._id;
+      });
+      foundPlace.followingUsers.filter(function(err, favouriteUser) {
+        return favouriteUser != foundUser._id;
+      });
+    });
+  });
+}
+
 // Create HTTP server.
 http.createServer(app).listen(3000);
 

@@ -20,15 +20,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <span class="text-muted">Email:</span> {{user.email}}<br>
-                  <span class="text-muted"></span>{{user.favouritePlaces}}<br><br>
 
-<!--                   <span class="text-muted my-histories"><a href="#" onclick="gotoMyStories()">Моите истории</a></span><br>
-                  <span class="text-muted my-histories"><a href="#" onclick="storyDetails()">Мальовица</a></span>
-                  <span class="text-muted my-histories"><a href="#" onclick="storyDetails()">Поход в Рила - Рилски езера</a></span>
-                  <span class="text-muted my-histories"><a href="#" onclick="storyDetails()">Стара планина - връх Ботев</a></span>
-                  <span class="text-muted my-histories"><a href="#" onclick="storyDetails()">Карлово, Калофер, Сопот</a></span>
-                  <span class="text-muted my-histories"><a href="#" onclick="storyDetails()">Мелник, Рупите и Руенски манастир</a></span>
-   -->              
+                  <!-- <span class="text-muted"></span>{{user.favouritePlaces}}<br><br> -->
+                  <div ng-repeat="placeId in user.favouritePlaces">
+                    <div class="panel panel-default">
+                      <span class="only-bottom-margin">{{placeId}}</span>
+                      <button id="similar" ng-click="removePlace(placeId)" class="btn btn-default pull-right"><i class="glyphicon"></i> Махни обекта от любими</button><br>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
                     <button id="logout" ng-click="logout()" class="btn btn-default pull-right"><i class="glyphicon"></i> Излез</button>
