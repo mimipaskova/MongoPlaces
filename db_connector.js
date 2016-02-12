@@ -3,23 +3,22 @@ var Schema = mongoose.Schema;
 mongoose.Promise = Promise;
 
 var usersSchema = new Schema({
-	email: String,
-	password: String,
-	favouritePlaces: [String],
-	salt: String
+	email: {type: String, unique: true, required: true},
+	password: {type: String, required:true},
+	favouritePlaces: [Schema.Types.ObjectId],
+	salt: {type: String, required:true}
 });
 
 var placesSchema = new Schema({
-	name: String,
+	name: {type: String, required: true},
 	loc: {
 		type: { type: String },
 		coordinates: []
 	},
-	type: String,
+	type: {type: String, required: true},
 	descrition: String,
 	workingTime: Number,
-	rating: Number,
-	followingUsers:[String],
+	rating: {type: Number, required: true},
 	likes: Number
 });
 

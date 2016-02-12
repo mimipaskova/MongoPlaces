@@ -1,5 +1,5 @@
 angular.module('takeAHike').controller('mapCtr', function ($scope, $http, $location) {
-	$http.get('api/map').then(function (result) {
+	$http.get('api/places').then(function (result) {
 		$scope.places = result.data;
 	});
 	$scope.logout = function() {
@@ -9,24 +9,8 @@ angular.module('takeAHike').controller('mapCtr', function ($scope, $http, $locat
 		}, function () {
 			console.log('fail');
 		});
-	},
-	$scope.profile = function() {
-		$http.post('/profile').then(function () {
-			console.log('success');
-			$location.path('/profile');
-		}, function () {
-			console.log('fail');
-		});
-	},
-	$scope.similarPlaces = function() {
-		console.log($scope.rating);
-		$http.post('/map/similar', {
-			rating: $scope.rating
-		}).then(function () {
-			console.log('success');
-			// $location.path('/profile');
-		}, function () {
-			console.log('fail');
-		});
-	}
+	};
+	$scope.similarPlaces = function(rating) {
+		$scope.rating = rating;
+	};
 });

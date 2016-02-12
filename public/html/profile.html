@@ -22,16 +22,16 @@
                   <span class="text-muted">Email:</span> {{user.email}}<br>
 
                   <!-- <span class="text-muted"></span>{{user.favouritePlaces}}<br><br> -->
-                  <div ng-repeat="placeId in user.favouritePlaces">
+                  <div ng-repeat="place in user.favouritePlaces">
                     <div class="panel panel-default">
-                      <span class="only-bottom-margin">{{placeId}}</span>
-                      <button id="similar" ng-click="removePlace(placeId)" class="btn btn-default pull-right"><i class="glyphicon"></i> Махни обекта от любими</button><br>
+                      <span class="only-bottom-margin">{{place.name}}</span>
+                      <button id="similar" ng-click="removePlace(place)" class="btn btn-default pull-right"><i class="glyphicon"></i> Махни обекта от любими</button><br>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                     <button id="logout" ng-click="logout()" class="btn btn-default pull-right"><i class="glyphicon"></i> Излез</button>
-                    <button id="map" ng-click="map()" class="btn btn-default pull-right"><i class="glyphicon"></i> Карта</button>
+                    <a href="#/map" class="btn btn-default pull-right"><i class="glyphicon"></i> Карта</a>
                   <!-- <div class="activity-mini">
                     <i class="glyphicon text-muted"></i> Влязъл си като потребител
                   </div> -->

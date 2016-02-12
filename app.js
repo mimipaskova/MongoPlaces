@@ -77,52 +77,62 @@ app.use('/api', function (req, resp, next) {
   }
 });
 
+function dbError (resp) {
+  return function (err) {
+    console.error(err);
+    resp.sendStatus(500);
+  }
+}
+
+function getProfile(userId) {
+  return db.models.users.findById(userId)
+  .select('email favouritePlaces')
+  .populate({path: 'favouritePlaces', model: 'place'});
+}
+
 app.get('/api/profile', function(req, resp) {
-  resp.json(req.session.user);
+  getProfile(req.session.user._id)
+  .then(function (user) {
+    resp.status(200).send(user);
+  }, dbError(resp));
 });
 
-app.get('/api/map', function(req, resp) {
+app.get('/api/places', function(req, resp) {
   db.models.places.find({})
   .then(function (places) {
-    // console.log(places);
     resp.json(places);
-  }, function(err) {
-    console.error('Cannot find any places', err);
-    resp.status(403).end();
-  });
+  }, dbError(resp));
 });
 
-app.post('/api/map/similar', function(req, resp) {
-  db.models.places.find({rating: req.body.rating})
+app.get('/api/map/by-rating/:rating', function(req, resp) {
+  db.models.places.find({rating: req.params.rating})
   .then(function (places) {
-    console.log(places);
     resp.json(places);
-  }, function(err) {
-    console.error('Cannot find any places', err);
-    resp.status(403).end();
-  });
+  }, dbError(resp));
 });
 
-app.post('/map', function(req, resp) {
-  resp.status(200).end();
+app.get('/api/map/by-type/:type', function(req, resp) {
+  db.models.places.find({type: req.params.type})
+  .then(function (places) {
+    resp.json(places);
+  }, dbError(resp));
 });
 
-app.post('/profile', function(req, resp) {
-  resp.status(200).end();
-});
-
-app.post('/profile/removePlace', function (req, resp) {
-  db.models.users.findById(place._id, function(err, foundUser) {
-    db.models.places.findById(user._id, function(err, foundPlace) {
-      foundUser.favouritePlaces.filter(function (favouritePlace) {
-        return favouritePlace != foundPlace._id;
-      });
-      foundPlace.followingUsers.filter(function(err, favouriteUser) {
-        return favouriteUser != foundUser._id;
-      });
+app.delete('/favourite/:placeId', function (req, resp) {
+  db.models.users.findById(req.session.user._id)
+  .then(function(user) {
+    user.favouritePlaces = user.favouritePlaces.filter(function(favouritePlaceId) {
+      return !favouritePlaceId.equals(req.params.placeId);
     });
-  });
-}
+    return user.save();
+  })
+  .then(function (user) {
+    return db.models.places.populate(user, 'favouritePlaces');
+  })
+  .then(function (populated) {
+    resp.json(populated);
+  }, dbError(resp));
+});
 
 // Create HTTP server.
 http.createServer(app).listen(3000);
