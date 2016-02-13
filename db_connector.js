@@ -16,7 +16,7 @@ var placesSchema = new Schema({
 		coordinates: []
 	},
 	type: {type: String, required: true},
-	descrition: String,
+	description: String,
 	workingTime: Number,
 	rating: {type: Number, required: true},
 	likes: Number

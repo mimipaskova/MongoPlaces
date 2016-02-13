@@ -116,6 +116,21 @@ app.get('/api/map/by-type/:type', function(req, resp) {
   }, dbError(resp));
 });
 
+app.get('/api/map/near/:la/:lo', function(req, resp) {
+  var point = { type : "Point", coordinates : [parseFloat(req.params.la),parseFloat(req.params.lo)] };
+  console.log(point);
+   db.models.places.aggregate([
+      {
+        $geoNear: { near: point, num : 5, spherical : true, distanceField: "dist.calculated", }
+      }
+    ])
+   .exec()
+   .then(function(places) {
+    resp.json(places);
+   }, dbError(resp));
+});
+
+
 app.delete('/favourite/:placeId', function (req, resp) {
   db.models.users.findById(req.session.user._id)
   .then(function(user) {
