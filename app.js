@@ -141,6 +141,37 @@ app.post('/favourite/:placeId', function (req, resp) {
   }, dbError(resp));
 });
 
+app.get('/top', function (req, resp) {
+  db.models.places.aggregate( [
+  { $sort: {'likes': -1} },
+  {
+    $group:
+    {
+      _id: "$type",
+      places:
+      {
+        $push:
+        {
+          name: "$name",
+          likes: "$likes"
+        },
+      }
+    }
+  },
+  {
+  $project: {
+    _id: 1,
+    places: { $slice: ["$places", 3]}
+  }
+  }
+])
+  .exec()
+  .then(function(data) {
+    console.log(data);
+    resp.json(data);
+  }, dbError(resp));
+});
+
 // Create HTTP server.
 http.createServer(app).listen(3000);
 

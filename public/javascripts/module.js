@@ -16,6 +16,10 @@ angular.module('takeAHike', ['ngRoute']).config(['$routeProvider', function ($ro
 		templateUrl: 'html/map.html',
 		controller: 'mapCtr'
 	})
+	.when('/top', {
+		templateUrl: 'html/topPlaces.html',
+		controller: 'topPlacesCtr'
+	})
 	.otherwise({
 		redirectTo: '/login'
 	});

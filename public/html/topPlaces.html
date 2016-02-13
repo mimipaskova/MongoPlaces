@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-11">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <div ng-repeat="type in types">
+                    <b>Тип: {{type._id}} <br>
+                    </b>
+                    <div ng-repeat="place in type.places">
+                      Име: {{place.name}}<br>
+                      Брой лайкове: {{place.likes}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="#/profile" class="btn btn-default pull-right"><i class="glyphicon"></i> Профил</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
