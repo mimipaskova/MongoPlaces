@@ -118,7 +118,6 @@ app.get('/api/map/by-type/:type', function(req, resp) {
 
 app.get('/api/map/near/:la/:lo', function(req, resp) {
   var point = { type : "Point", coordinates : [parseFloat(req.params.la),parseFloat(req.params.lo)] };
-  console.log(point);
    db.models.places.aggregate([
       {
         $geoNear: { near: point, num : 5, spherical : true, distanceField: "dist.calculated", }
@@ -148,7 +147,6 @@ app.delete('/favourite/:placeId', function (req, resp) {
 });
 
 app.post('/favourite/:placeId', function (req, resp) {
-  console.log(req.params.placeId);
   db.models.users.findOneAndUpdate({_id: req.session.user._id},
     {$addToSet: {favouritePlaces: req.params.placeId}})
   .then(function () {
@@ -182,7 +180,6 @@ app.get('/top', function (req, resp) {
 ])
   .exec()
   .then(function(data) {
-    console.log(data);
     resp.json(data);
   }, dbError(resp));
 });

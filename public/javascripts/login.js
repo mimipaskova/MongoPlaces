@@ -5,7 +5,7 @@ angular.module('takeAHike').controller('loginCtr', function ($scope, $http, $loc
 			password: $scope.password
 		}).then(function () {
 			console.log('success');
-			$location.path('/map');
+			$location.path('/map').search({});
 		}, function () {
 			alert("Wrong password or email");
 			console.log('fail');

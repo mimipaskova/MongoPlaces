@@ -5,7 +5,7 @@ angular.module('takeAHike').controller('profileCtr', function ($scope, $http, $l
 	$scope.logout = function() {
 		$http.post('/logout').then(function () {
 			console.log('success');
-			$location.path('/login');
+			$location.path('/login').search({});
 		}, function () {
 			console.log('fail');
 		});

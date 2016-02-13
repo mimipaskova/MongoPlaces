@@ -19,32 +19,22 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span class="text-muted">Email:</span> {{user.email}}<br>
-
-                  <!-- <span class="text-muted"></span>{{user.favouritePlaces}}<br><br> -->
-                  <div ng-repeat="place in user.favouritePlaces">
-                    <div class="panel panel-default">
-                      <span class="only-bottom-margin">{{place.name}}</span>
-                      <button id="similar" ng-click="removePlace(place)" class="btn btn-default pull-right"><i class="glyphicon"></i> Махни обекта от любими</button><br>
-                    </div>
+                  <!-- <span class="text-muted">Email:</span> {{user.email}}<br><br> -->
+                  <div ng-repeat="place in user.favouritePlaces" class="panel panel-default">
+                    <div >
+                      <div class="only-bottom-margin">{{place.name}}</div>
+                      <button id="similar" ng-click="removePlace(place)" class="btn btn-default"><i class="glyphicon"></i> Махни обекта от любими</button><br>
+                    </div><br>
                   </div>
                 </div>
                 <div class="col-md-6">
-                    <button id="logout" ng-click="logout()" class="btn btn-default pull-right"><i class="glyphicon"></i> Излез</button>
-                    <a href="#/map" class="btn btn-default pull-right"><i class="glyphicon"></i> Карта</a>
-                    <a href="#/top" class="btn btn-default pull-right"><i class="glyphicon"></i> Топ</a>
-                  <!-- <div class="activity-mini">
-                    <i class="glyphicon text-muted"></i> Влязъл си като потребител
-                  </div> -->
+                    <button id="logout" ng-click="logout()" class="btn btn-default pull-right mybtn"><i class="glyphicon"></i> Излез</button>
+                    <a href="#/map" class="btn btn-default pull-right mybtn"><i class="glyphicon"></i> Карта</a>
+                    <a href="#/top" class="btn btn-default pull-right mybtn"><i class="glyphicon"></i> Топ Места</a>
                 </div>
               </div>
             </div>
           </div>
-<!--           <div class="row">
-            <div class="col-md-12">
-              <hr><button onclick="gotoEditProfile()" class="btn btn-default pull-right"><i class="glyphicon glyphicon-pencil"></i> Редактирай</button>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
