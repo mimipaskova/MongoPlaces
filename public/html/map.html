@@ -14,6 +14,7 @@
                       <span class="only-bottom-margin">Type: {{place.type}}</span><br>
                       <span class="only-bottom-margin">Description: {{place.description}}</span><br>
                       <span class="only-bottom-margin">Rating: {{place.rating}}</span><br>
+                      <button id="similar" ng-hide="place.isFavourite" ng-click="addToFavourite(place)" class="btn btn-default pull-right"><i class="glyphicon"></i> Добави към Любими</button><br>
                     </div>
                   </div>
                 </div>

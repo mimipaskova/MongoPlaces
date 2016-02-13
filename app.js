@@ -36,32 +36,23 @@ app.post('/login', function (req, resp) {
 });
 
 app.post('/register', function (req, resp) {
-  console.log("rfetfwegwergew");
-    // db.models.users.findOne({
-    //     email: req.body.username
-    // }).then(function (user) {
-    //   console.log(email);
-    //     resp.status(403).end();
-    // }, function (err) {
-    //   console.log("ERRR");
-      var user = db.models.users;
-      var newUser = new user();
-      newUser.email = req.body.username;
-      newUser.password = req.body.password;
-      newUser.salt = crypto.randomBytes(8).toString('hex');
-      var hash = crypto.createHash('sha1');
-      hash.update(newUser.salt + newUser.password);
-      newUser.password = hash.digest('hex');
-      newUser.save(function(err) {
-        if(err) {
-          console.error('Cannot find user', err);
-          resp.status(403).end();
-        } else {
-          req.session.user = newUser;
-          resp.status(200).end();
-        }
-      });
-    // });
+  var user = db.models.users;
+  var newUser = new user();
+  newUser.email = req.body.username;
+  newUser.password = req.body.password;
+  newUser.salt = crypto.randomBytes(8).toString('hex');
+  var hash = crypto.createHash('sha1');
+  hash.update(newUser.salt + newUser.password);
+  newUser.password = hash.digest('hex');
+  newUser.save(function(err) {
+    if(err) {
+      console.error('Cannot find user', err);
+      resp.status(403).end();
+    } else {
+      req.session.user = newUser;
+      resp.status(200).end();
+    }
+  });
 });
 
 app.post('/logout', function(req, resp) {
@@ -97,10 +88,17 @@ app.get('/api/profile', function(req, resp) {
   }, dbError(resp));
 });
 
+// TODO use aggregation for mongo query
 app.get('/api/places', function(req, resp) {
-  db.models.places.find({})
+  db.models.places.find({}).lean()
   .then(function (places) {
-    resp.json(places);
+    return db.models.users.findById(req.session.user._id)
+    .then(function(user) {
+      places.forEach(function(place) {
+        place.isFavourite = (user.favouritePlaces.indexOf(place._id) !== -1);
+      });
+      resp.json(places);
+    });
   }, dbError(resp));
 });
 
@@ -131,6 +129,15 @@ app.delete('/favourite/:placeId', function (req, resp) {
   })
   .then(function (populated) {
     resp.json(populated);
+  }, dbError(resp));
+});
+
+app.post('/favourite/:placeId', function (req, resp) {
+  console.log(req.params.placeId);
+  db.models.users.findOneAndUpdate({_id: req.session.user._id},
+    {$addToSet: {favouritePlaces: req.params.placeId}})
+  .then(function () {
+    resp.sendStatus(200);
   }, dbError(resp));
 });
 

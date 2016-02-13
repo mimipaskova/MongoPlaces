@@ -9,15 +9,14 @@ angular.module('takeAHike').controller('profileCtr', function ($scope, $http, $l
 		}, function () {
 			console.log('fail');
 		});
-	}
-	// $scope.removePlace = function(placeId) {
-	// 	console.log(placeId);
-	// 	$http.post('/profile/removePlace').then(function () {
-	// 		placeIdToRemove: placeId,
-	// 		console.log('success');
-	// 	}, function () {
-	// 		console.log('fail');
-	// 	});
-	// 	// Delete place from user's favourite places
-	// }
+	};
+	$scope.removePlace = function(place) {
+		console.log(place);
+		$http.delete('/favourite/' + place._id).then(function (result) {
+			$scope.user = result.data;
+			console.log('success');
+		}, function () {
+			console.log('fail');
+		});
+	};
 });
