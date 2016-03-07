@@ -10,8 +10,10 @@ Steps:
 
 2) ```npm install```
 
-3) start mongo - ```mongod```
+3) Run populatePlaces.js and populateUsers.js (```node nameOfFile```)
 
-4) ```npm start```
+4) start mongo - ```mongod```
 
-5) The app is on localhost:3000
+5) ```npm start```
+
+6) The app is on localhost:3000
